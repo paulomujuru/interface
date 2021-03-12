@@ -1,77 +1,52 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-type Cutter interface {
-	Cut()
+type schumuck interface {
+	makeSituationAwkward() string
+	partOfSociety() bool
+	lieButBelieveItTrue() bool
 }
 
-type Cooker interface {
-	Cook()
+type costanza struct {
+	sex      string
+	fullName string
+	strong   bool
 }
 
-//The chef has the ability to cut and cook
-type chef struct {
-	Cutter
-	Cooker
+func (c costanza) makeSituationAwkward() string {
+	return "I was in the pool!"
 }
 
-type knife struct {
+func (c costanza) partOfSociety() bool {
+	return true
 }
 
-type chainsaw struct {
+func (c costanza) lieButBelieveItTrue() bool {
+	return false
 }
 
-type oven struct {
+type swanson struct {
+	sex      string
+	fullName string
+	strong   string
 }
 
-type pan struct {
-}
+func (s swanson) partOfSociety() bool {
+	return true
 
-//Knife becomes an implementer of Cutter
-func (k knife) Cut() {
-	fmt.Println("Chop Chop Chop...!")
-}
-
-//Chainsaw becomes an implementer of Cutter
-func (c chainsaw) Cut() {
-	fmt.Println("ZRRRRRRRRRRR!!!!")
-}
-
-//Pan becomes an implementer of Cooker
-func (p pan) Cook() {
-	fmt.Println("sweeeeesh!")
-}
-
-//Oven becomes an implementer of Cooker
-func (o oven) Cook() {
-	fmt.Println("BHHHHHHHMMMMMMMMM!")
-}
-
-//Chef does his work that is cut and cook irrespective of the implementers of the interfaces
-func (c chef) Do() {
-	c.Cut()
-	c.Cook()
 }
 
 func main() {
-	//Shannon Bennett a renowned Australian chef loves to use a knife and pan to work
-	shannon := chef{
-		Cutter: knife{},
-		Cooker: pan{},
+	var winston = costanza{}
+	var george = costanza{
+		sex:      "male",
+		fullName: "George Costanza",
+		strong:   true,
 	}
+	schumuck := []schumuck{george, winston}
 
-	//Swish swissh and a swissh he makes an amazing dish!
-	shannon.Do()
-
-	//Fat Dude loves to chainsaw things and throw them into the oven to roast them.
-	fatDude := chef{
-		Cutter: chainsaw{},
-		Cooker: oven{},
+	for _, s := range schumuck {
+		fmt.Println(s.makeSituationAwkward())
 	}
-
-	//ZRRRRRRRRRRR... setting to 220C and ... Nom nom nom!
-	fatDude.Do()
 }
